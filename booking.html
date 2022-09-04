@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"> 
+<title>HTML5 Drag and Drop</title> 
+<style> 
+#shelf {
+width:500px;
+height:100px;
+background-color:#eeeeee;
+border-style:solid;
+border-width:thin;
+}
+#shoppingcartcenter {
+position:absolute;
+width:180px;
+height:180px;
+top:220px;
+left:75px;
+}
+#boxapple {
+position:absolute;
+width:180px;
+height:180px;
+top:220px;
+left:25px;
+border:15px solid green;
+}
+#boxbanana{
+position:absolute;
+width:180px;
+height:180px;
+top:220px;
+left:375px;
+border:15px solid yellow;
+}
+.fruit {
+width:75px;
+height:30px;
+float:left;
+margin-left:10px;
+margin-top:10px;
+}
+
+.box{
+width:250px;
+height:250px;
+float:left;
+margin-left:10px;
+margin-top:10px;
+}
+</style> 
+</head> 
+<body> 
+
+<div  id="shelf" class="fruit" >
+  <img id="apple1" draggable="true" src="images/apple.gif">
+  <img id="apple2" draggable="true" src="images/apple.gif">
+  <img id="apple3" draggable="true" src="images/apple.gif">
+  <img id="banana1" draggable="true" src="images/banana.gif">
+  <img id="banana2" draggable="true" src="images/banana.gif">
+  <img id="banana3" draggable="true" src="images/banana.gif">
+</div>
+
+<div id="boxapple" class="box"></div>
+<div id="boxbanana" class="box"></div>
+<script>
+  var dragStart = function (e){
+    try{
+       e.dataTransfer.setData('text/plain',e.target.id);
+    }catch(ex){
+      e.dataTransfer.setData('Text',e.target.id)
+    }
+  };
+  var cancel = function (e){
+    if(e.preventDefault) e.preventDefault();
+    if(e.stopPropagation) e.stopPropagation();
+    return false;
+  };
+  var dropped = function(e){
+    var id;
+    cancel(e);
+    try{
+
+      id = e.dataTransfer.getData('text/plain');
+
+    }catch(ex){
+      id = e.dataTransfer.getData('Text');
+    }
+    debugger;
+    e.target.appendChild(document.querySelector('#'+id))
+  }
+
+  var img = document.querySelector('#apple1');
+  img.addEventListener('dragstart',dragStart,false);
+  var img2 = document.querySelector('#apple2');
+  img2.addEventListener('dragstart',dragStart,false);
+  var img3 = document.querySelector('#apple3');
+  img3.addEventListener('dragstart',dragStart,false);
+  var target = document.querySelector('#boxapple');
+  target.addEventListener('drop',dropped,false) 
+  target.addEventListener('dragenter',cancel,false)
+  target.addEventListener('dragover',cancel,false);
+
+  var imgb1 = document.querySelector('#banana1');
+  imgb1.addEventListener('dragstart',dragStart,false);
+  var imgb2 = document.querySelector('#banana2');
+  imgb2.addEventListener('dragstart',dragStart,false);
+  var imgb3 = document.querySelector('#banana3');
+  imgb3.addEventListener('dragstart',dragStart,false);
+  var targetb = document.querySelector('#boxbanana');
+  targetb.addEventListener('drop',dropped,false) 
+  targetb.addEventListener('dragenter',cancel,false)
+  targetb.addEventListener('dragover',cancel,false);
+</script> 
+</body> 
+</html>

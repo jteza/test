@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <div id="firstPage" style="padding: 50px; background-color: limegreen">
+      <div>
+        <label for="stayDate">Date: </label>
+        <input
+          
+          type="date"
+          id="stayDate"
+          name="stayDate"
+          onchange="changeInputHandler()"
+        />
+      </div>
+      <div>
+        <label for="firstName">First Name: </label>
+        <input
+          value=""
+          id="firstName"
+          name="firstName"
+          onchange="changeInputHandler()"
+        />
+      </div>
+      <div>
+        <label for="lastName">Last Name: </label>
+        <input
+          value=""
+          id="lastName"
+          name="lastName"
+          onchange="changeInputHandler()"
+        />
+      </div>
+      <div>
+        <button onclick="goToNextPage()">Next</button>
+      </div>
+    </div>
+    <div id="secondPage" style="padding: 50px; background-color: lightBlue">
+      <div>
+        <label for="email">Email: </label>
+        <input
+        
+          value=""
+          type="email"
+          id="email"
+          name="email"
+          onchange="changeInputHandlerSecondPage()"
+        />
+      </div>
+      <div>
+        <label for="adults">Number of Adults: </label>
+        <input
+          value=""
+          type="number"
+          id="adults"
+          name="adults"
+          onchange="changeInputHandlerSecondPage()"
+        />
+      </div>
+      <div>
+        <label for="children">Number of children: </label>
+        <input
+          value=""
+          type="number"
+          id="children"
+          name="children"
+          onchange="changeInputHandlerSecondPage()"
+        />
+      </div>
+      <div>
+        <label>Need Cooking facilities?</label>
+        <div>
+          
+        <input
+          value=""
+          type="radio"
+          id="cookingFacilitiesYes"
+          name="cookingFacilities"
+          onchange="changeInputHandlerSecondPage()"
+          
+        /><label for="cookingFacilitiesYes">Yes </label>
+        <br>
+        <input
+          value=""
+          type="radio"
+          id="cookingFacilitiesNo"
+          name="cookingFacilities"
+          onchange="changeInputHandlerSecondPage()"
+          
+        /><label for="cookingFacilitiesNo">No </label>
+        </div>
+        
+      </div>
+      <div>
+        <label for="phone">phone: </label>
+        <input
+          value=""
+          id="phone"
+          name="phone"
+          onchange="changeInputHandlerSecondPage()"
+        />
+      </div>
+      <div>
+        <button onclick="goToPreviousPage()">Previous</button>
+      </div>
+    </div>
+    <script>
+      function goToNextPage() {
+        document.getElementById('firstPage').style.display = 'none';
+        document.getElementById('secondPage').style.display = 'block';
+      }
+      function goToPreviousPage() {
+        document.getElementById('firstPage').style.display = 'block';
+        document.getElementById('secondPage').style.display = 'none';
+      }
+      function dataSettingOnload() {
+        /*first page*/
+        document.getElementById('secondPage').style.display = 'none';
+        document.getElementById('firstName').value =
+          localStorage.getItem('firstName');
+          document.getElementById('stayDate').value =
+          localStorage.getItem('stayDate');
+        document.getElementById('lastName').value =
+          localStorage.getItem('lastName');
+        //-----------------Second Page-------------------------
+        document.getElementById('email').value = localStorage.getItem('email');
+        document.getElementById('phone').value = localStorage.getItem('phone');
+
+        document.getElementById('adults').value = localStorage.getItem('adults');
+        document.getElementById('children').value = localStorage.getItem('children');
+
+        document.getElementById('cookingFacilities').value = localStorage.getItem('cookingFacilities');
+
+        /*3rd page*/
+
+        /*4th page*/
+      }
+      function changeInputHandler() {
+        let stayDate = document.getElementById('stayDate').value;
+        let firstName = document.getElementById('firstName').value;
+        let lastName = document.getElementById('lastName').value;
+        localStorage.setItem('firstName', firstName);
+        localStorage.setItem('stayDate', stayDate.toString());
+        localStorage.setItem('lastName', lastName);
+      }
+      function changeInputHandlerSecondPage() {
+        let email = document.getElementById('email').value;
+        let adults = document.getElementById('adults').value;
+        let children = document.getElementById('children').value;
+        let phone = document.getElementById('phone').value;
+        let cookingFacilities = document.getElementById('cookingFacilities').value;
+        localStorage.setItem('email', email);
+        localStorage.setItem('adults', adults);
+        localStorage.setItem('children', children);
+        localStorage.setItem('phone', phone);
+        localStorage.setItem('cookingFacilities', cookingFacilities);
+      }
+      window.onload = dataSettingOnload();
+    </script>
+  </body>
+</html>
